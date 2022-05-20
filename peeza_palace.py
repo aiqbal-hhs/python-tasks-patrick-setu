@@ -3,7 +3,7 @@ from collections import namedtuple
 
 pizzas = {"classic cheese": 8.50, "americano": 8.50, "ham and cheese": 8.50, "classic veggie": 8.50, "garlic and aioli": 8.50, "pepperoni": 8.50, "hawaiian": 8.50, "beef and onion": 13.50, "cheesy garlic": 13.50, "chicken deluxe": 13.50, "peri peri chicken": 13.50, "buffalo chicken": 13.50}
 pizza_toppings = {"extra cheese": 0.5, "ham": 0.5, "olives": 0.5, "pepperoni": 0.5, "onions": 0.5, "mushrooms": 0.5}
-user_details = {"Name": "" , "Address": "", "Mobile": ""}
+user_details = {"Name": "", "Address": "", "Mobile": ""}
 final_order = {}
 user_total = 0
 
@@ -23,7 +23,7 @@ def actions():
     #print("\nThe available toppings are: \n{}".format("\n".join(pizza_toppings).title()))
 
 #Displays the pizza menu
-list_pizzas = namedtuple('list_pizzas', ['pizza','price'])
+list_pizzas = namedtuple('list_pizzas', ['pizza', 'price'])
 pizza_choices = []
 pizza_choices.append(list_pizzas('- Classic Cheese', '$8.50'))
 pizza_choices.append(list_pizzas('- Americano', '$8.50'))
@@ -40,9 +40,9 @@ pizza_choices.append(list_pizzas('- Buffalo Chicken', '$13.50\n'))
 
 def view_pizzas():
     for entry in pizza_choices:
-        pizza = getattr(entry,'pizza').ljust(25)
-        price = getattr(entry,'price').ljust(7)
-        print('{}{}'.format(pizza,price))
+        pizza = getattr(entry, 'pizza').ljust(25)
+        price = getattr(entry, 'price').ljust(7)
+        print('{}{}'.format(pizza, price))
 
 #Display toppings Menu
 list_toppings = namedtuple('list_toppings', ['topping','price'])
@@ -65,14 +65,14 @@ def service_type():
     """Displays the options of service for the user, or to go back to menu"""
     repeat = True
     while repeat:
-        print("\nFor delivery($3.00 surcharge), enter '1'. For pick-up, enter '2'. To go back to menu, enter '3'")
+        print("\nFor delivery($3.00 surcharge), enter '1'.\nFor pick-up, enter '2'.\nTo go back to menu, enter '3'")
         service = input("What would you like to do?\n")
         if service == "1":
             print("\nYou chose delivery.")
             repeat = True
             while repeat:
                 address = input("What is the address?\n").strip().lower()
-                while repeat:    
+                while repeat:
                     confirm = input("\nThe address is {}. Is this correct? Enter 'yes' or 'no'\n".format(address.title())).strip().lower()
                     if confirm == "yes":
                         user_details["Address"] = address
@@ -85,7 +85,7 @@ def service_type():
             repeat = True
             while repeat:
                 mobile = input("\nWhat mobile number should we contact you with?\n").strip()
-                while repeat:    
+                while repeat:
                     confirm = input("\nThe mobile number you entered is {}. Is this correct? Enter 'yes' or 'no'\n".format(mobile)).strip()
                     if confirm == "yes":
                         user_details["Mobile"] = mobile
@@ -162,14 +162,14 @@ def order(pizza, user_total):
                     print("You have ordered a {} with {}".format(pizza, topping))
         else:
             print("Sorry, we do not have {}\n".format(topping))
-            
-    
+
+
 #---------------------------------------------------------------------------------------------
 
 #Collects user's name and greets them
 name = input("What is your name?\n")
 user_details["Name"] = name.title()
-print("\nHello {}, welcome to Henderson High School Pizza Palace!".format(user_details["Name"]))  
+print("\nHello {}, welcome to Henderson High School Pizza Palace!".format(user_details["Name"]))
 
 #if/else that runs through the entire pizza ordering process
 repeat = True
@@ -196,8 +196,13 @@ while repeat:
         continue
 
 
+
 #to-do list:
+#fix formatting of choose service
+#try/except value error address & mobile
+#y/n confirm
+#>5 pizzas
 #add $3 charge for delivery
 #add costs to global user_total
 #fix spacings
-#create if else for dictionary in list using index greater than 0, display pizza with more than 1 topping 
+#create if else for dictionary in list using index greater than 0, display pizza with more than 1 topping

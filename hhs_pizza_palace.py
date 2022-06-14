@@ -33,15 +33,15 @@ user_total = 0
 def actions():
     """Displays the actions the user can do"""
     print("\nTo execute action, type:")
-    time.sleep(0.2)
+    time.sleep(0.1)
     print("'1' to view actions")
-    time.sleep(0.2)
+    time.sleep(0.1)
     print("'2' to view the menu")
-    time.sleep(0.2)
+    time.sleep(0.1)
     print("'3' to place an order (maximum 5 pizzas)")
-    time.sleep(0.2)
+    time.sleep(0.1)
     print("'4' to exit\n")
-    time.sleep(0.2)
+    time.sleep(0.1)
 
 
 # Displays the menu
@@ -112,7 +112,7 @@ def service_type(user_total):
             "\nFor pick-up, enter '2'."
             "\nTo go back to menu, enter '3'"
         )
-        time.sleep(2)
+        time.sleep(1)
         service = input("\nWhat would you like to do?\n")
         if service == "1":
             user_total += 3
@@ -125,6 +125,11 @@ def service_type(user_total):
             while repeat:
                 name = input("\nWhat is your name?\n").strip().lower()
                 while repeat:
+                    if name.isalpha() is True and len(name) > 0:
+                        pass
+                    else:
+                        print("\nWarning: Please enter only letters")
+                        break
                     confirm = (
                         input(
                             "\nYour name is '{}'. Is this correct? "
@@ -406,6 +411,7 @@ while repeat:
     elif user_action == "2":
         print("")
         view_pizzas()
+        time.sleep(0.5)
         view_toppings()
         time.sleep(1.5)
     elif user_action == "3":
@@ -422,9 +428,7 @@ while repeat:
         continue
 
 # to-do list:
-# len(address)>0 Else loop back so user enters something
+# isalpha for asking name
 # change my final_order dictionary to separated pizza and topping lists
 # doesnt print pizza if there is no topping
 # copy paste rishant code
-# add colours
-# end program after ordering but doesnt break return to menu

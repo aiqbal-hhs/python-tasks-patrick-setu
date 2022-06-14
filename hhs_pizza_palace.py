@@ -1,4 +1,5 @@
 import time
+import sys
 from collections import namedtuple
 
 pizzas = {
@@ -31,21 +32,27 @@ user_total = 0
 # Displays possible user actions
 def actions():
     """Displays the actions the user can do"""
-    print(
-        """\nTo execute action, type:
-    '1' to view actions
-    '2' to view the menu
-    '3' to place an order (maximum 5 pizzas)
-    '4' to exit\n"""
-    )
-    time.sleep(2)
+    print("\nTo execute action, type:")
+    time.sleep(0.2)
+    print("'1' to view actions")
+    time.sleep(0.2)
+    print("'2' to view the menu")
+    time.sleep(0.2)
+    print("'3' to place an order (maximum 5 pizzas)")
+    time.sleep(0.2)
+    print("'4' to exit\n")
+    time.sleep(0.2)
 
 
 # Displays the menu
 # def list_pizzas():
 # """Displays the available pizzas and toppings for order"""
-# print("\nThe available pizzas that we offer are: \n{}".format("\n".join(pizzas).title()))
-# print("\nThe available toppings are: \n{}".format("\n".join(pizza_toppings).title()))
+#print(
+    #"\nThe available pizzas that we offer are: \n{}"
+    #.format("\n".join(pizzas).title())
+#)
+# print("\nThe available toppings are: \n{}"
+# .format("\n".join(pizza_toppings).title()))
 
 # Displays the pizza menu
 list_pizzas = namedtuple("list_pizzas", ["pizza", "price"])
@@ -65,15 +72,23 @@ pizza_choices.append(list_pizzas("- Buffalo Chicken", "$13.50\n"))
 
 
 def view_pizzas():
-    print(
-        "The pizzas we offer are:"
-        )
-    time.sleep(0.5)
+    print("The pizzas we offer are:")
+    time.sleep(0.3)
     for entry in pizza_choices:
         pizza = getattr(entry, "pizza").ljust(25)
         price = getattr(entry, "price").ljust(7)
         print("{}{}".format(pizza, price))
-        time.sleep(0.2)
+        time.sleep(0.1)
+
+
+def view_toppings():
+    print("The toppings we offer are:")
+    time.sleep(0.5)
+    for entry in topping_choices:
+        topping = getattr(entry, "topping").ljust(25)
+        price = getattr(entry, "price").ljust(7)
+        print("{}{}".format(topping, price))
+        time.sleep(0.1)
 
 
 # Display toppings Menu
@@ -87,43 +102,61 @@ topping_choices.append(list_toppings("- Onions", "$0.50"))
 topping_choices.append(list_toppings("- Mushrooms", "$0.50"))
 
 
-def view_toppings():
-    print(
-        "The toppings we offer are:"
-        )
-    time.sleep(0.5)
-    for entry in topping_choices:
-        topping = getattr(entry, "topping").ljust(25)
-        price = getattr(entry, "price").ljust(7)
-        print("{}{}".format(topping, price))
-        time.sleep(0.1)
-
-
 # Create function for ordering pizza
 def service_type(user_total):
     """Displays the options of service for the user, or to go back to menu"""
     repeat = True
     while repeat:
         print(
-            "\nFor delivery($3.00 surcharge), enter '1'.\nFor pick-up, enter '2'.\nTo go back to menu, enter '3'"
+            "\nFor delivery($3.00 surcharge), enter '1'."
+            "\nFor pick-up, enter '2'."
+            "\nTo go back to menu, enter '3'"
         )
-        time.sleep(4)
+        time.sleep(2)
         service = input("\nWhat would you like to do?\n")
         if service == "1":
             user_total += 3
             print(
-                "\nYou chose delivery. There is a $3 surcharge that has been added to your total."
+                "\nYou chose delivery. There is a $3 surcharge "
+                "that has been added to your total."
             )
             time.sleep(1.5)
             repeat = True
             while repeat:
-                address = input("What is the address?\n").strip().lower()
+                name = input("\nWhat is your name?\n").strip().lower()
                 while repeat:
                     confirm = (
                         input(
-                            "\nThe address is '{}'. Is this correct? Enter 'yes' or 'no'\n".format(
-                                address.title()
-                            )
+                            "\nYour name is '{}'. Is this correct? "
+                            "Enter 'yes' or 'no'\n".format(name.title())
+                        )
+                        .strip()
+                        .lower()
+                    )
+                    time.sleep(0.5)
+                    if confirm == "yes" or confirm == "y":
+                        user_details["Name"] = name.title()
+                        repeat = False
+                    elif confirm == "no" or confirm == "n":
+                        break
+                    else:
+                        print("\nWarning: Please enter 'yes' or 'no'")
+                        time.sleep(0.5)
+                        continue
+
+            repeat = True
+            while repeat:
+                address = input("\nWhat is the address?\n").strip().lower()
+                while repeat:
+                    if len(address) > 0:
+                        pass
+                    else:
+                        print("\nWarning: Please enter an address.")
+                        break
+                    confirm = (
+                        input(
+                            "\nThe address is '{}'. Is this correct? "
+                            "Enter 'yes' or 'no'\n".format(address.title())
                         )
                         .strip()
                         .lower()
@@ -135,8 +168,8 @@ def service_type(user_total):
                     elif confirm == "no" or confirm == "n":
                         break
                     else:
-                        print("\nWarning: Please enter 'yes' or 'no'\n")
-                        time.sleep(0.7)
+                        print("\nWarning: Please enter 'yes' or 'no'")
+                        time.sleep(0.5)
                         continue
 
             repeat = True
@@ -144,19 +177,20 @@ def service_type(user_total):
                 try:
                     mobile = int(
                         input(
-                            "\nWhat mobile number should we contact you with?\n"
+                            "\nWhat mobile number should "
+                            "we contact you with?\n"
                         ).strip()
                     )
                 except ValueError:
                     print("\nWarning: Please enter only integers.")
-                    time.sleep(0.7)
+                    time.sleep(0.5)
                     continue
                 while repeat:
                     confirm = (
                         input(
-                            "\nThe mobile number you entered is '{}'. Is this correct? Enter 'yes' or 'no'\n".format(
-                                mobile
-                            )
+                            "\nThe mobile number you entered is '{}'. "
+                            "Is this correct? Enter 'yes' or 'no'\n"
+                            .format(mobile)
                         )
                         .strip()
                         .lower()
@@ -168,18 +202,20 @@ def service_type(user_total):
                     elif confirm == "no" or confirm == "n":
                         break
                     else:
-                        print("\nWarning: Please enter 'yes' or 'no'\n")
-                        time.sleep(0.7)
+                        print("\nWarning: Please enter 'yes' or 'no'")
+                        time.sleep(0.5)
                         continue
 
-            time.sleep(2)
+            time.sleep(1)
             order(final_order, user_total)
             break
 
         elif service == "2":
             print("\nYou chose pick-up.")
             time.sleep(1)
-            print("You can order up to 5 pizzas from our available pizza range")
+            print(
+                "You can order up to 5 pizzas "
+                "from our available pizza range")
             time.sleep(1)
             order(final_order, user_total)
             break
@@ -190,7 +226,7 @@ def service_type(user_total):
 
         else:
             print("\nWarning: Please enter '1', '2', or '3'\n")
-            time.sleep(0.7)
+            time.sleep(0.5)
             continue
 
 
@@ -203,7 +239,8 @@ def order(pizza, user_total):
         order_loop += 1
         if order_loop > 1:
             order_another = (
-                input("\nDo you want to order another pizza?\n").strip().lower()
+                input("\nDo you want to order another pizza?\n")
+                .strip().lower()
             )
             time.sleep(0.5)
             if order_another == "yes" or order_another == "y":
@@ -212,12 +249,14 @@ def order(pizza, user_total):
                 loop = False
                 break
             else:
-                print("Please enter 'yes' or 'no'.")
-                time.sleep(0.7)
+                print("\nPlease enter 'yes' or 'no'.")
+                time.sleep(0.5)
 
         if order_loop > 5:
             print(
-                "\nYou have ordered the maximum amount of 5 pizzas. \nWe will display your order and then continue to your order total."
+                "\nYou have ordered the maximum amount of 5 pizzas. "
+                "\nWe will display your order and "
+                "then continue to your order total."
             )
             time.sleep(2.5)
             loop = False
@@ -237,10 +276,12 @@ def order(pizza, user_total):
                 time.sleep(1.5)
 
         view_pizzas()
-        time.sleep(5)
+        time.sleep(1.5)
         ordering_pizza = True
         while ordering_pizza:
-            pizza = input("What pizza would you like to select?\n").strip().lower()
+            pizza = input(
+                "What pizza would you like to select?\n"
+            ).strip().lower()
             time.sleep(0.5)
             if pizza in pizzas:
                 print("\nYou have selected the {} pizza".format(pizza))
@@ -248,13 +289,16 @@ def order(pizza, user_total):
                 time.sleep(0.5)
                 ordering_pizza = False
             else:
-                print("\nSorry, we do not have {} pizza".format(pizza))
-                time.sleep(0.7)
+                print("\nSorry, we do not have {} pizza\n".format(pizza))
+                time.sleep(0.5)
 
         ordering_topping = True
         while ordering_topping:
             add_topping = (
-                input("\nWould you like to add an extra topping? Enter 'yes' or 'no'\n")
+                input(
+                    "\nWould you like to add an extra topping? "
+                    "Enter 'yes' or 'no'\n"
+                )
                 .strip()
                 .lower()
             )
@@ -264,7 +308,8 @@ def order(pizza, user_total):
                 while repeat:
                     list_toppings = (
                         input(
-                            "\nDo you want to view the available toppings? Please enter 'yes' or 'no'\n"
+                            "\nDo you want to view the available toppings? "
+                            "Please enter 'yes' or 'no'\n"
                         )
                         .strip()
                         .lower()
@@ -279,90 +324,96 @@ def order(pizza, user_total):
                         repeat = False
                     else:
                         print("\nWarning: Please enter 'yes' or 'no'\n")
-                        time.sleep(0.7)
+                        time.sleep(0.5)
                         continue
             elif add_topping == "no" or add_topping == "n":
                 break
             else:
                 print("\nPlease enter 'yes' or 'no'\n")
-                time.sleep(0.7)
+                time.sleep(0.5)
                 continue
 
-            topping = input("\nWhat topping would you like to add?\n").strip().lower()
+            topping = (
+                input("\nWhat topping would you like to add?\n")
+                .strip().lower()
+            )
             time.sleep(1)
             if topping in pizza_toppings:
                 final_order.setdefault(pizza, [])
                 final_order[pizza].append(topping)
                 user_total += pizza_toppings.get(topping)
                 if len(final_order[pizza]) > 1:
-                    for pizza, toppings in final_order.items():
-                        # maybe use final_order.keys and then use final_order[topping]
-                        print("\nYou have ordered a {} with {}.".format(pizza, toppings))
+                    for pizza in final_order:
+                        # maybe use final_order.keys and
+                        # then use final_order[topping]
+                        print(
+                            "\nYou have ordered "
+                            "a {} with {}.".format(pizza, final_order[pizza])
+                        )
                         time.sleep(1)
                     # print out the multiple toppings in one print statement
                     # print {pizza} with {""}
 
                 else:
-                    print("\nI have added {} to your {} pizza".format(topping, pizza))
+                    print(
+                        "\nI have added {} to your {} pizza"
+                        .format(topping, pizza)
+                    )
                     time.sleep(1)
                     for key in final_order:
-                        print("\nYou have ordered a {} with {}".format(pizza, topping))
+                        print(
+                            "\nYou have ordered a {} with {}"
+                            .format(pizza, topping)
+                        )
                         time.sleep(1.5)
 
             else:
                 print("\nSorry, we do not have {}".format(topping))
-                time.sleep(0.7)
+                time.sleep(0.5)
 
-    print(
-        "\nYou have ordered:"
-    )
+    print("\nYou have ordered:")
     for key in final_order:
         print("- {} pizza with {}".format(key, topping).capitalize())
         time.sleep(1)
-    # print the user's order
 
-    print("\nYour total cost for your order comes to ${:.2f}".format(user_total))
+    print(
+        "\nYour total cost for your order comes to ${:.2f}"
+        .format(user_total)
+    )
     time.sleep(2)
     if order_loop >= 1:
         print(
-            "\nYour order will be ready soon. Thank you for calling Henderon High School Pizza Palace!"
+            "\nYour order will be ready soon. "
+            "Thank you for calling Henderon High School Pizza Palace!"
         )
     else:
         print("\nThank you for calling Henderon High School Pizza Palace!")
+    sys.exit()
 
 
-# ---------------------------------------------------------------------------------------------
-
-# Collects user's name and greets them
-name = input("What is your name?\n").strip().lower()
-user_details["Name"] = name.title()
-print(
-    "\nHello {}, welcome to Henderson High School Pizza Palace!".format(
-        user_details["Name"]
-    )
-)
-time.sleep(1.5)
+# -----------------------------------------------------------------------------
 
 # if/else that runs through the entire pizza ordering process
+print("Hi, thank you for calling Henderson High School Pizza Palace.")
 repeat = True
 while repeat:
     actions()
-    time.sleep(1)
-    user_action = input("Which action would you like to execute?\n").strip().lower()
+    user_action = input(
+        "Which action would you "
+        "like to execute?\n").strip().lower()
     if user_action == "1":
         continue
     elif user_action == "2":
         print("")
         view_pizzas()
-        time.sleep(3)
         view_toppings()
-        time.sleep(3)
+        time.sleep(1.5)
     elif user_action == "3":
         service_type(user_total)
-        break
+        # break
     elif user_action == "4":
         print("\nThank you for calling Henderon High School Pizza Palace.")
-        time.sleep(2.5)
+        time.sleep(1)
         print("\nHave a good day, {}.".format(user_details["Name"]))
         break
     else:
@@ -370,9 +421,10 @@ while repeat:
         time.sleep(0.5)
         continue
 
-
 # to-do list:
-# adjust time
-# print the user order before the total cost
-# fix the print when ordering multiple of the same pizza since it just adds to the first one
-# fix returning to menu inside the service function
+# len(address)>0 Else loop back so user enters something
+# change my final_order dictionary to separated pizza and topping lists
+# doesnt print pizza if there is no topping
+# copy paste rishant code
+# add colours
+# end program after ordering but doesnt break return to menu

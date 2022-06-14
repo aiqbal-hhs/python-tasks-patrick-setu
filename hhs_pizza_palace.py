@@ -47,10 +47,10 @@ def actions():
 # Displays the menu
 # def list_pizzas():
 # """Displays the available pizzas and toppings for order"""
-#print(
-    #"\nThe available pizzas that we offer are: \n{}"
-    #.format("\n".join(pizzas).title())
-#)
+# print(
+    # "\nThe available pizzas that we offer are: \n{}"
+    # .format("\n".join(pizzas).title())
+# )
 # print("\nThe available toppings are: \n{}"
 # .format("\n".join(pizza_toppings).title()))
 

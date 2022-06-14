@@ -428,7 +428,5 @@ while repeat:
         continue
 
 # to-do list:
-# isalpha for asking name
 # change my final_order dictionary to separated pizza and topping lists
 # doesnt print pizza if there is no topping
-# copy paste rishant code

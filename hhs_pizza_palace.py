@@ -370,9 +370,15 @@ def order(pizza, user_total):
                 if len(final_order[pizza]) > 1:
                     print("\nYour current order is:")
                     for pizza, toppings in final_order.items():
-                        print("- {} pizza with {}".format(pizza, toppings).capitalize())
+                        print(
+                            "- {} pizza with {}"
+                            .format(pizza, toppings).capitalize()
+                        )
                         time.sleep(1)
-                    print("\nYour current total is: ${:.2f}".format(user_total))
+                    print(
+                        "\nYour current total is: ${:.2f}"
+                        .format(user_total)
+                    )
 
                 else:
                     print(
@@ -390,7 +396,10 @@ def order(pizza, user_total):
                             .capitalize()
                         )
                         time.sleep(1)
-                    print("\nYour current total is: ${:.2f}".format(user_total))
+                    print(
+                        "\nYour current total is: ${:.2f}"
+                        .format(user_total)
+                        )
 
             else:
                 print("\nSorry, we do not have {}".format(topping))
@@ -405,7 +414,10 @@ def order(pizza, user_total):
 
     confirm_loop = True
     while confirm_loop:
-        confirm_order = input("\nIs this order correct? Enter 'yes' or 'no'\n").strip().lower()
+        confirm_order = input(
+            "\nIs this order correct? "
+            "Enter 'yes' or 'no'\n"
+            ).strip().lower()
         time.sleep(0.5)
         if confirm_order == "yes" or confirm_order == "y":
             break
@@ -415,7 +427,7 @@ def order(pizza, user_total):
             print("\nWarning: Please enter 'yes' or 'no'\n")
             time.sleep(0.5)
             continue
-    
+
     if confirm_order == "no" or confirm_order == "n":
         final_order.clear()
         user_total = 0
@@ -425,7 +437,7 @@ def order(pizza, user_total):
         "\nYour total cost for your order comes to ${:.2f}"
         .format(user_total)
     )
-      
+
     time.sleep(1.5)
     if order_loop >= 1:
         print(

@@ -368,17 +368,11 @@ def order(pizza, user_total):
                 final_order[pizza].append(topping)
                 user_total += pizza_toppings.get(topping)
                 if len(final_order[pizza]) > 1:
-                    for pizza in final_order:
-                        # maybe use final_order.keys and
-                        # then use final_order[topping]
-                        print(
-                            "\nYou have ordered "
-                            "a {} with {}.".format(pizza, final_order[pizza])
-                        )
+                    print("\nYour current order is:")
+                    for pizza, toppings in final_order.items():
+                        print("- {} pizza with {}".format(pizza, toppings).capitalize())
                         time.sleep(1)
-                        print("\nYour total is: ${:.2f}".format(user_total))
-                    # print out the multiple toppings in one print statement
-                    # print {pizza} with {""}
+                    print("\nYour current total is: ${:.2f}".format(user_total))
 
                 else:
                     print(
@@ -386,27 +380,52 @@ def order(pizza, user_total):
                         .format(topping, pizza)
                     )
                     time.sleep(1)
-                    for key in final_order:
+                    print("\nYour current order is:")
+                    if len(final_order[pizza]) < 0:
+                        print("- {} pizza".format(pizza).capitalize())
+                    for pizza, topping in final_order.items():
                         print(
-                            "\nYou have ordered a {} with {}"
+                            "- {} pizza with {}"
                             .format(pizza, topping)
+                            .capitalize()
                         )
                         time.sleep(1)
-                    print("\nYour total is: ${:.2f}".format(user_total))
+                    print("\nYour current total is: ${:.2f}".format(user_total))
 
             else:
                 print("\nSorry, we do not have {}".format(topping))
                 time.sleep(0.5)
 
     print("\nYou have ordered:")
-    for key in final_order:
-        print("- {} pizza with {}".format(key, topping).capitalize())
+    for pizza, topping in final_order.items():
+        if len(final_order[pizza]) < 0:
+            print("- {} pizza".format(pizza))
+        print("- {} pizza with {}".format(pizza, topping).capitalize())
         time.sleep(1)
+
+    confirm_loop = True
+    while confirm_loop:
+        confirm_order = input("\nIs this order correct? Enter 'yes' or 'no'\n").strip().lower()
+        time.sleep(0.5)
+        if confirm_order == "yes" or confirm_order == "y":
+            break
+        elif confirm_order == "no" or confirm_order == "n":
+            break
+        else:
+            print("\nWarning: Please enter 'yes' or 'no'\n")
+            time.sleep(0.5)
+            continue
+    
+    if confirm_order == "no" or confirm_order == "n":
+        final_order.clear()
+        user_total = 0
+        order(final_order, user_total)
 
     print(
         "\nYour total cost for your order comes to ${:.2f}"
         .format(user_total)
     )
+      
     time.sleep(1.5)
     if order_loop >= 1:
         print(
@@ -418,7 +437,7 @@ def order(pizza, user_total):
     sys.exit()
 
 # The if/else code that runs through the entire pizza ordering process
-print("Hi, thank you for calling Henderson High School Pizza Palace.")
+print("\nHi, thank you for calling Henderson High School Pizza Palace.")
 repeat = True
 while repeat:
     actions()

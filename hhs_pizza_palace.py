@@ -45,16 +45,6 @@ def actions():
     time.sleep(0.1)
 
 
-# Displays the menu
-# def list_pizzas():
-# """Displays the available pizzas and toppings for order"""
-# print(
-    # "\nThe available pizzas that we offer are: \n{}"
-    # .format("\n".join(pizzas).title())
-# )
-# print("\nThe available toppings are: \n{}"
-# .format("\n".join(pizza_toppings).title()))
-
 # Displays the pizza menu
 list_pizzas = namedtuple("list_pizzas", ["pizza", "price"])
 pizza_choices = []
@@ -72,6 +62,7 @@ pizza_choices.append(list_pizzas("- Peri Peri Chicken", "$13.50"))
 pizza_choices.append(list_pizzas("- Buffalo Chicken", "$13.50\n"))
 
 
+# Prints out a list of all pizzas
 def view_pizzas():
     """Displays the pizzas within the pizza_choices list"""
     print("The pizzas we offer are:")
@@ -83,6 +74,7 @@ def view_pizzas():
         time.sleep(0.1)
 
 
+# Prints out a list of all toppings
 def view_toppings():
     """Displays the toppings within the topping_choices list"""
     print("The toppings we offer are:")
@@ -105,7 +97,7 @@ topping_choices.append(list_toppings("- Onions", "$0.50"))
 topping_choices.append(list_toppings("- Mushrooms", "$0.50"))
 
 
-# Create function for ordering pizza
+# Displays the ordering options so caller can pick an option
 def service_type(user_total):
     """Displays the options of service for the user, or to go back to menu"""
     repeat = True
@@ -263,7 +255,7 @@ def service_type(user_total):
             continue
 
 
-# Orders the user's pizza/s
+# Allows the user to select their pizza of choice and extra toppings
 def order(pizza, user_total):
     """"User selects a pizza and toppings(optional) then displays order"""
     order_loop = 0
@@ -425,7 +417,7 @@ def order(pizza, user_total):
         print("\nThank you for calling Henderon High School Pizza Palace!")
     sys.exit()
 
-# if/else that runs through the entire pizza ordering process
+# The if/else code that runs through the entire pizza ordering process
 print("Hi, thank you for calling Henderson High School Pizza Palace.")
 repeat = True
 while repeat:
@@ -456,7 +448,3 @@ while repeat:
         print("\nWarning: Please enter one of the available actions.")
         time.sleep(0.5)
         continue
-
-# to-do list:
-# change my final_order dictionary to separated pizza and topping lists
-# doesnt print pizza if there is no topping
